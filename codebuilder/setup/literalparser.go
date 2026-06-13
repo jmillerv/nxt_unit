@@ -84,7 +84,7 @@ func (lv *LiteralVisitor) Visit(node ast.Node) ast.Visitor {
 				}
 			}
 		case token.IMAG:
-			// TODO: Complex Number not support yet
+			// TODO: Complex numbers are not supported yet
 		case token.CHAR:
 			str, _ := strconv.Unquote(n.Value)
 			if str != "" {
@@ -106,7 +106,7 @@ func (lv *LiteralVisitor) Visit(node ast.Node) ast.Visitor {
 		}
 	case *ast.StructType:
 		// Rethink about the struct type. because it does not provide us the information. For example,
-		// a = 5. 5 is meanning.
+		// a = 5. 5 is meaningful.
 		if LiteralList, ok := lv.LiteralMap[reflect.TypeOf(n.Fields)]; ok {
 			lv.LiteralMap[reflect.TypeOf(n.Fields)] = append(LiteralList, reflect.ValueOf(n.Fields))
 		} else {

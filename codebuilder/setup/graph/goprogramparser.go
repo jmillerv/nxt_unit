@@ -74,14 +74,14 @@ func ParsePackage(file string) (program *parsermodel.ProjectProgram, err error) 
 	}
 
 	// It means that we cannot find the method,
-	// It might be this sectarian:
+	// It might be this scenario:
 	// type mMT struct{}
 	//
 	// func (*mMT) GetSmartUnit(a int) string {
 	//	fmt.Println("nono")
 	//	return "ok"
 	// }
-	// We cannot find the smart unit because it is belongs to a lowercase receiver
+	// We cannot find the smart unit because it belongs to a lowercase receiver
 	if len(pkgs) != 0 && pkgs[0] != nil {
 		for _, m := range pkgs[0].Members {
 			methods := getAllMethods(pkgs[0].Prog, m.Type())
@@ -119,7 +119,7 @@ func getAllMethods(prog *ssa.Program, typ types.Type) []*types.Selection {
 }
 
 // GetFunctionCallGraph TODO: GetFunctionCallGraph this function was called many times by testcode.go, parser.go.
-// Need to reduce this functions call. Because it can save our running time
+// Need to reduce this function's calls. Because it can save our running time
 func GetFunctionCallGraph(option atgconstant.Options) (*parsermodel.ProjectFunction, *callgraph.Graph, error) {
 	TestedFunctionAndCallees, err := GetPackageFunction(option)
 	if err != nil {

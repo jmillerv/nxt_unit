@@ -40,7 +40,7 @@ var (
 	directoryPath  = flag.String("directory_path", "", "tested repository root directory")
 	functionList   = flag.String("function_list", "", "passed in a list of function names")
 	ReceiverName   = flag.String("receiver_name", "", "used to receive the receiver name")
-	ReceiverIsStar = flag.Bool("receiver_is_start", false, "used to know the receiver has a pointer")
+	ReceiverIsStar = flag.Bool("receiver_is_star", false, "used to know the receiver has a pointer")
 	templateType   = flag.Int("template_type", 0, "special template type")
 	UseMockType    = flag.Int("use_mock_type", atgconstant.UseMockUnknown, "default is mockito. use nomock=1,mockito=2, gomonkey=3. gomonkey support go>=1.17")
 	versionFlag    = flag.Bool("v", false, "Print the current version and exit")
@@ -85,21 +85,21 @@ func main() {
 		err := Plugin()
 		logextractor.ExecutionLog.LogFinalRes("######################### Conclusion ##########################")
 		if err != nil {
-			logextractor.ExecutionLog.LogFinalRes("Sorry, we cannot generate the test for you, Please check the error code above")
+			logextractor.ExecutionLog.LogFinalRes("Sorry, we cannot generate the test for you. Please check the error code above")
 			logextractor.ExecutionLog.LogError(err.Error())
 			return
 		}
-		logextractor.ExecutionLog.LogFinalRes("Successfully generate the unit test!")
+		logextractor.ExecutionLog.LogFinalRes("Successfully generated the unit test!")
 		return
 	case atgconstant.PluginQMode:
 		err := Template()
 		logextractor.ExecutionLog.LogFinalRes("######################### Conclusion ##########################")
 		if err != nil {
-			logextractor.ExecutionLog.LogFinalRes("Sorry, we cannot generate the template for you, Please check the error code above")
+			logextractor.ExecutionLog.LogFinalRes("Sorry, we cannot generate the template for you. Please check the error code above")
 			logextractor.ExecutionLog.LogError(err.Error())
 			return
 		}
-		logextractor.ExecutionLog.LogFinalRes("Successfully generate the unit test template!")
+		logextractor.ExecutionLog.LogFinalRes("Successfully generated the unit test template!")
 		return
 	case atgconstant.Backend:
 		fmt.Println("back stage task is deprecated")
@@ -271,7 +271,7 @@ func SplitFunctionTask() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("Successfully generate the unit test!")
+	fmt.Println("Successfully generated the unit test!")
 }
 
 func GetUseMockType(dir string) int {

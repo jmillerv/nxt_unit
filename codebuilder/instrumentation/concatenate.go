@@ -138,7 +138,7 @@ func GetImportsInfosFromFile(filepath string) ([]*Import, error) {
 	}
 	parsedFile, err := parser.ParseFile(fset, filepath, content, parser.ParseComments)
 	if err != nil {
-		return nil, fmt.Errorf("ast parser.ParseFilee has error: %v", err)
+		return nil, fmt.Errorf("ast parser.ParseFile has error: %v", err)
 	}
 	file := &SrcFileRecord{
 		fset:    fset,

@@ -43,7 +43,7 @@ func OverPassMakeCall(ctx context.Context, funcName string, mockRender *Statemen
 	// Overpass get its input as our target function.
 	function = function.In(0)
 	if function.Kind() != reflect.Func {
-		panic("it's no true")
+		panic("it's not true")
 	}
 	vtx := atgconstant.VariableContext{
 		Level:    0,
@@ -59,9 +59,9 @@ func OverPassMakeCall(ctx context.Context, funcName string, mockRender *Statemen
 		// 不行就放过，没有statement
 		resultType := function.Out(i)
 		switch resultType.Kind() {
-		// reflect.Zero new the value of addressable nor settable
-		// it make faker.GetValue(for pointer) fail
-		// so we to Mutate struct for pointer by reflectValue.Addr()
+		// reflect.Zero new the value of addressable or settable
+		// it makes faker.GetValue(for pointer) fail
+		// so we need to Mutate struct for pointer by reflectValue.Addr()
 		// see: https://halfrost.com/go_reflection/
 		case reflect.Ptr:
 			v := reflect.New(resultType.Elem()).Elem()
@@ -99,7 +99,7 @@ func MakeCall(ctx context.Context, funcName string, mockRender *StatementRender,
 	var out []reflect.Value
 	function := reflect.TypeOf(m)
 	if function.Kind() != reflect.Func {
-		panic("it's no true")
+		panic("it's not true")
 	}
 	vtx := atgconstant.VariableContext{
 		Level:    0,
@@ -114,9 +114,9 @@ func MakeCall(ctx context.Context, funcName string, mockRender *StatementRender,
 		// 不行就放过，没有statement
 		resultType := function.Out(i)
 		switch resultType.Kind() {
-		// reflect.Zero new the value of addressable nor settable
-		// it make faker.GetValue(for pointer) fail
-		// so we to Mutate struct for pointer by reflectValue.Addr()
+		// reflect.Zero new the value of addressable or settable
+		// it makes faker.GetValue(for pointer) fail
+		// so we need to Mutate struct for pointer by reflectValue.Addr()
 		// see: https://halfrost.com/go_reflection/
 		case reflect.Ptr:
 			v := reflect.New(resultType.Elem()).Elem()
@@ -172,7 +172,7 @@ func MakeCall(ctx context.Context, funcName string, mockRender *StatementRender,
 
 func GetPrivateFunc(m interface{}) (r interface{}) {
 	f := reflect.TypeOf(m)
-	// it's no receiver func
+	// it has no receiver func
 	if f.NumIn() <= 0 {
 		return m
 	}
@@ -189,7 +189,7 @@ func GetPrivateFunc(m interface{}) (r interface{}) {
 	if !hit {
 		return m
 	}
-	// it means m it the receiver of
+	// it means m is the receiver of
 	method, ok := getNestedMethod(f.In(0), name)
 	if ok {
 		return method.Func.Interface()
