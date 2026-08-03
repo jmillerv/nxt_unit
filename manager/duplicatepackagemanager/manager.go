@@ -169,7 +169,7 @@ func (d *DuplicatePackageManager) RelativePath() string {
 // The bool result is true if the value load or store success, false if fail
 func (d *DuplicatePackageManager) LoadOrStoreImportPkg(pkgName, pkgPath string) (string, bool) {
 	// check pkg path is exist
-	existPkgName, exist := d.IsPkgPathExit(pkgPath)
+	existPkgName, exist := d.IsPkgPathExist(pkgPath)
 	// PkgMap exist renamed pkgName by smart unit
 	if exist {
 		orignPkgName := atghelper.GetPkgName(pkgPath)
@@ -218,7 +218,7 @@ func (d *DuplicatePackageManager) UniquePkgMapLen() int {
 }
 
 // The bool result is true if the value load or store success, false if fail
-func (d *DuplicatePackageManager) IsPkgPathExit(pkgPath string) (string, bool) {
+func (d *DuplicatePackageManager) IsPkgPathExist(pkgPath string) (string, bool) {
 	pkgName, ok := d.CheckPkgMap[pkgPath]
 	return pkgName, ok
 }
