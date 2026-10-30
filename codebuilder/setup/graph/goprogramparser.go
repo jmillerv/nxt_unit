@@ -44,7 +44,9 @@ func ParsePackage(file string) (program *parsermodel.ProjectProgram, err error) 
 			RepoCalls.Store(fileDir, program)
 		}()
 	}
-	cfg := &packages.Config{Mode: packages.LoadSyntax}
+	cfg := &packages.Config{Mode: packages.NeedName | packages.NeedTypes |
+		packages.NeedSyntax | packages.NeedTypesInfo | packages.NeedTypesSizes |
+		packages.NeedImports | packages.NeedDeps | packages.NeedFiles}
 	cfg.Tests = false
 	cfg.Dir = fileDir
 	cfg.ParseFile = func(fset *token.FileSet, filename string, src []byte) (*ast.File, error) {
